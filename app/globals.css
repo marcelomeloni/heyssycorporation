@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600;700&family=Oswald:wght@400;500;600&family=Play:wght@400;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/acumin-pro');
+@import url('https://fonts.cdnfonts.com/css/halis-gr');
+@import "tailwindcss";
+@theme {
+  --font-oswald: 'Oswald', sans-serif;
+  --font-inconsolata: 'Inconsolata', monospace;
+  --font-play: 'Play', sans-serif;
+  --font-halis: 'Halis GR', sans-serif;
+  --font-acumin: 'Acumin Pro', sans-serif;
+
+  --color-brand-black: #0a0a0a;
+  --color-brand-white: #f5f5f5;
+  --color-brand-gray: #5E5E5E;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-[var(--color-brand-black)];
+    font-family: var(--font-acumin);
+  }
+}
+
+@layer components {
+
+
+  /* Product image hover */
+  .product-img {
+    @apply transition-all duration-500 ease-in-out bg-center bg-no-repeat;
+    background-size: contain;
+  }
+
+  /* Size selector */
+  .size-btn {
+    @apply border border-gray-300 px-3 py-1 text-sm cursor-pointer transition-all duration-200;
+    font-family: var(--font-inconsolata);
+  }
+  .size-btn:hover {
+    border-color: var(--color-brand-black);
+  }
+  .size-btn.active {
+    background-color: var(--color-brand-black);
+    color: white;
+    border-color: var(--color-brand-black);
+  }
+  .size-btn.disabled {
+    @apply text-gray-300 border-gray-200 cursor-not-allowed line-through;
+  }
+}
