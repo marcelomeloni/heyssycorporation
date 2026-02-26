@@ -104,16 +104,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="border-b border-gray-100 px-6 md:px-16 py-5 flex items-center justify-between">
-        <Link href="/">
-          <Image src="/heyssyaa.png" alt="Heyssy" width={90} height={54} className="object-contain" />
-        </Link>
-        <span className="font-inconsolata text-[10px] uppercase tracking-[0.3em] text-brand-gray">Checkout Seguro</span>
-        <div className="flex items-center gap-1 text-brand-gray">
-          <i className="fa-solid fa-lock text-xs" />
-          <span className="font-inconsolata text-[10px] uppercase tracking-widest hidden md:inline">SSL</span>
-        </div>
-      </div>
+     
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
         <div className="mb-12">
@@ -162,4 +153,5 @@ export default function CheckoutPage() {
       </div>
     </div>
   );
+
 }
