@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export', // Essencial para gerar a pasta /out para o Render
   images: {
-    // Allow local images and future CDN domains
-    domains: [],
-    unoptimized: true, // useful for static export; remove if using Next.js image optimization
+    unoptimized: true, // Obrigatório para exportação estática usando next/image
+  },
+  // Desativa o linting no build se quiser agilizar o deploy (opcional)
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
