@@ -15,18 +15,20 @@
   --color-brand-gray: #5E5E5E;
 }
 
-/* Forçamos o navegador a tratar o site apenas como Light Mode */
+/* Blindagem total contra Dark Mode — "only" impede override forçado do navegador */
 :root {
-  color-scheme: light;
+  color-scheme: light only;
+  supported-color-schemes: light;
 }
 
 @layer base {
   * {
     -webkit-tap-highlight-color: transparent;
     tap-highlight-color: transparent;
-    /* Evita seleção de texto acidental em elementos de UI, mas permite em descrições */
     -webkit-user-select: none;
     user-select: none;
+    /* Impede que navegadores mobile apliquem dark mode em elementos individuais */
+    forced-color-adjust: none;
   }
 
   /* Permite seleção apenas em textos informativos e códigos de rastreio */
@@ -36,7 +38,7 @@
 
   html {
     scroll-behavior: smooth;
-    /* Blindagem contra Dark Mode forçado de navegadores */
+    color-scheme: light only !important;
     background-color: #ffffff !important;
     color: #0a0a0a !important;
   }
@@ -48,10 +50,27 @@
     font-family: var(--font-acumin);
   }
 
-  /* Reset de filtros de inversão de cores (comum em "Smart Dark Mode" de celulares) */
+  /* Bloqueia Smart Invert e Force Dark Mode do Chrome/Samsung Browser */
   @media (prefers-color-scheme: dark) {
-    html, body, img, video {
+    html {
+      color-scheme: light only !important;
+    }
+    html, body {
+      background-color: #ffffff !important;
+      color: #0a0a0a !important;
+    }
+    img, video, svg, canvas {
       filter: none !important;
+    }
+    /* Reverte qualquer cor que o navegador tente sobrescrever */
+    * {
+      background-color: revert-layer;
+      color: revert-layer;
+    }
+    /* Re-aplica por cima do revert para html/body */
+    html, body {
+      background-color: #ffffff !important;
+      color: #0a0a0a !important;
     }
   }
 }

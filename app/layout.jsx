@@ -7,7 +7,6 @@ import { CartProvider } from '@/contexts/CartContext';
 import { CartSidebar } from '@/components/CartSidebar';
 import { Toaster } from 'react-hot-toast';
 
-// Configuração de SEO Completa
 export const metadata = {
   title: {
     default: 'Heyssy Corporation',
@@ -33,12 +32,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    // Forçamos o esquema de cores light e a classe light para ignorar o Dark Mode do sistema
-    <html lang="pt-BR" style={{ colorScheme: 'light' }} className="light">
+    <html
+      lang="pt-BR"
+      style={{ colorScheme: 'light' }}
+      className="light"
+      data-color-scheme="light"
+    >
       <head>
-        {/* Meta tag para reforçar que o site não possui suporte a dark mode no navegador */}
+        {/* "light" sem "dark" = navegador não oferece versão escura */}
         <meta name="color-scheme" content="light" />
-        
+        {/* Específico para Safari iOS — desativa Smart Invert na web view */}
+        <meta name="supported-color-schemes" content="light" />
+        {/* Impede que WebKit (iOS Safari) force qualquer inversão */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
         {/* Preconnect para carregar o Font Awesome mais rápido */}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link
@@ -48,19 +56,20 @@ export default function RootLayout({ children }) {
           referrerPolicy="no-referrer"
         />
       </head>
-      
-      {/* Forçamos bg-white e text-black para garantir o contraste editorial */}
-      <body className="flex flex-col min-h-screen bg-white text-black antialiased">
-        
+
+      <body
+        className="flex flex-col min-h-screen bg-white text-black antialiased"
+        style={{ backgroundColor: '#ffffff', color: '#0a0a0a' }}
+      >
         {/* Configuração Global dos Toasts (estilizado para o tema Heyssy) */}
-        <Toaster 
+        <Toaster
           position="top-center"
           toastOptions={{
             duration: 4000,
             style: {
               background: '#000',
               color: '#fff',
-              borderRadius: '0px', 
+              borderRadius: '0px',
               fontFamily: 'var(--font-acumin)',
               fontSize: '12px',
               textTransform: 'uppercase',
@@ -79,16 +88,16 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <OrdersProvider>
             <CartProvider>
-              
+
               <Navbar />
               <CartSidebar />
-              
+
               <main className="flex-1 w-full max-w-[100vw] overflow-x-hidden min-w-0">
                 {children}
               </main>
-              
+
               <Footer />
-              
+
             </CartProvider>
           </OrdersProvider>
         </AuthProvider>
