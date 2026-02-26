@@ -5,7 +5,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { OrdersProvider } from '@/contexts/OrdersContext';
 import { CartProvider } from '@/contexts/CartContext';
 import { CartSidebar } from '@/components/CartSidebar';
-import { Toaster } from 'react-hot-toast'; // Importação do sistema de Toasts
+import { Toaster } from 'react-hot-toast';
 
 // Configuração de SEO Completa
 export const metadata = {
@@ -18,9 +18,6 @@ export const metadata = {
   authors: [{ name: 'Heyssy Corp' }],
   creator: 'Heyssy Corporation',
   publisher: 'Heyssy Corporation',
-  
-
-
   robots: {
     index: true,
     follow: true,
@@ -36,8 +33,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
+    // Forçamos o esquema de cores light e a classe light para ignorar o Dark Mode do sistema
+    <html lang="pt-BR" style={{ colorScheme: 'light' }} className="light">
       <head>
+        {/* Meta tag para reforçar que o site não possui suporte a dark mode no navegador */}
+        <meta name="color-scheme" content="light" />
+        
         {/* Preconnect para carregar o Font Awesome mais rápido */}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link
@@ -47,7 +48,10 @@ export default function RootLayout({ children }) {
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className="flex flex-col min-h-screen bg-white antialiased">
+      
+      {/* Forçamos bg-white e text-black para garantir o contraste editorial */}
+      <body className="flex flex-col min-h-screen bg-white text-black antialiased">
+        
         {/* Configuração Global dos Toasts (estilizado para o tema Heyssy) */}
         <Toaster 
           position="top-center"
@@ -56,7 +60,7 @@ export default function RootLayout({ children }) {
             style: {
               background: '#000',
               color: '#fff',
-              borderRadius: '0px', // Estética brutalista quadrada
+              borderRadius: '0px', 
               fontFamily: 'var(--font-acumin)',
               fontSize: '12px',
               textTransform: 'uppercase',

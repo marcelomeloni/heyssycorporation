@@ -2,6 +2,7 @@
 @import url('https://fonts.cdnfonts.com/css/acumin-pro');
 @import url('https://fonts.cdnfonts.com/css/halis-gr');
 @import "tailwindcss";
+
 @theme {
   --font-oswald: 'Oswald', sans-serif;
   --font-inconsolata: 'Inconsolata', monospace;
@@ -14,46 +15,85 @@
   --color-brand-gray: #5E5E5E;
 }
 
+/* Forçamos o navegador a tratar o site apenas como Light Mode */
+:root {
+  color-scheme: light;
+}
+
 @layer base {
   * {
     -webkit-tap-highlight-color: transparent;
     tap-highlight-color: transparent;
+    /* Evita seleção de texto acidental em elementos de UI, mas permite em descrições */
+    -webkit-user-select: none;
     user-select: none;
+  }
+
+  /* Permite seleção apenas em textos informativos e códigos de rastreio */
+  p, h1, h2, h3, span, b, i, .select-all {
+    user-select: text;
   }
 
   html {
     scroll-behavior: smooth;
+    /* Blindagem contra Dark Mode forçado de navegadores */
+    background-color: #ffffff !important;
+    color: #0a0a0a !important;
   }
 
   body {
-    @apply bg-white text-[var(--color-brand-black)];
+    @apply antialiased min-h-screen;
+    background-color: #ffffff !important;
+    color: var(--color-brand-black) !important;
     font-family: var(--font-acumin);
+  }
+
+  /* Reset de filtros de inversão de cores (comum em "Smart Dark Mode" de celulares) */
+  @media (prefers-color-scheme: dark) {
+    html, body, img, video {
+      filter: none !important;
+    }
   }
 }
 
 @layer components {
-
-
   /* Product image hover */
   .product-img {
     @apply transition-all duration-500 ease-in-out bg-center bg-no-repeat;
     background-size: contain;
   }
 
-  /* Size selector */
+  /* Size selector (Brutalista) */
   .size-btn {
-    @apply border border-gray-300 px-3 py-1 text-sm cursor-pointer transition-all duration-200;
+    @apply border border-gray-300 px-3 py-1 text-sm cursor-pointer transition-all duration-200 uppercase;
     font-family: var(--font-inconsolata);
   }
+  
   .size-btn:hover {
     border-color: var(--color-brand-black);
   }
+  
   .size-btn.active {
     background-color: var(--color-brand-black);
     color: white;
     border-color: var(--color-brand-black);
   }
+  
   .size-btn.disabled {
-    @apply text-gray-300 border-gray-200 cursor-not-allowed line-through;
+    @apply text-gray-300 border-gray-100 cursor-not-allowed line-through;
+  }
+
+  /* Estilização customizada para a barra de rolagem (Minimalista) */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #eeeeee;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #000000;
   }
 }
